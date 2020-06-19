@@ -34,7 +34,7 @@ public:
     }
 };
 ```   
-Any instantiated instance of this ```Observer``` class, once registered with an approprate notifier object, will have it's OnEventX() member function when this is involved from the notifier.  Let's examine how this is done.
+All instances of this ```Observer``` class, once registered with an approprate notifier object, will have it's OnEventX() member function called when involved from the notifier object.  Let's examine how this is done.
 
 ``` c++
 // Create notify bus object
