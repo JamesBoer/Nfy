@@ -2,10 +2,10 @@
 Nfy is a template-based notification library designed to simplify the implementation of an interface-based observer pattern in C++.  
 
 ## What is Nfy Used For?
-The Nfy library allows you to send messages from one class to another through the use of an interface.  Observer classes are derived from this interface, register themselves with the notification system, and can then receive messages.  The notification class retains a list of weak pointers to these observers, allowing a the notification system to send messages to an arbitrary number of observers.  Otherwise, it would be simple enough to just use a single ```std::function``` as a callback mechanism.
+The Nfy library allows you to send messages from one class to another through the use of an interface.  Observer classes are derived from this interface, register themselves with the notification system, and can then receive messages.  The notification class retains a list of weak pointers to these observers, allowing a the notification system to send messages to an arbitrary number of observers.
 
 ## Building Nfy
-The Nft library is distributed as a single header file, Nft.hpp, so you can include the library header and start using it immediately.  Nft requires a C++ 11 compliant compiler.
+The Nfy library is distributed as a single header file, Nfy.hpp, so you can include the library header and start using it immediately.  Nfy requires a C++ 14 compliant compiler.
 
 ## How to Use Nfy
 The Nfy library consists of a single class, called ```Notify```, which is in the namespace Nfy.  For brevity and clarity, all subsequent examples are assuming ```using namespace Nfy``` has been added earlier in the source file.  Let's examine how we might use this class.  
@@ -54,7 +54,7 @@ You'll note that we've created the observer object with a ```std::shared_ptr```.
 
 ### Events with Boolean Return Values
 
-Notifications using function signatures with a Boolean return value have a special meaning with Nfy.  The ```Notifier``` class will call all registered observers until a function returns a true value, which signifies "I've handled this event, so you can stop processing the requests now."  There may be cases where it only makes sense for one observer to recieve an event, after which all other observers should not be notified.
+Notifications using function signatures with a Boolean return value have a special meaning for Nfy.  The ```Notifier``` class will call all registered observers until a function returns a true value, which signifies "I've handled this event, so you can stop processing the requests now."  There may be cases where it only makes sense for one observer to handle an event, after which all other observers should not be notified.
 
 Let's assume our ```INotify``` interface looked like this, with a Boolean return value on the ```OnEventX()``` function:
 
