@@ -6,6 +6,7 @@ Copyright (c) 2020 James Boer
 */
 
 #include "UnitTest.h"
+#include <thread>
 
 using namespace Nfy;
 
@@ -181,5 +182,32 @@ TEST_CASE("Test Notify", "[Notify]")
 		count += observer3->GetReturnVal() ? 1 : 0;
 		REQUIRE(count == 1);
 	}
+
+	SECTION("Multi-threaded counter notification")
+	{
+		// Create notify bus
+		Notifier<INotify, MultiThreaded> notify;
+
+		// Create notified object and register with notify bus
+		auto observer = std::make_shared<Observer>();
+		notify.Register(observer);
+
+		std::vector<std::thread> threads;
+		for (size_t i = 0; i < 10; ++i)
+		{
+			threads.emplace_back(([&notify] ()
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
+				for (size_t c = 0; c < 1000; ++c)
+					notify.Notify(&INotify::Increment);
+			}));
+		}
+		for (auto & thread : threads)
+			thread.join();
+
+		// Ensure we've counted to 100
+		REQUIRE(observer->GetCounter() == 10000);
+	}
+
 
 }

@@ -45,8 +45,6 @@ namespace Nfy
 	class Notifier
 	{
 	public:
-		Notifier() {}
-
 		void Register(std::weak_ptr<T> observer)
 		{
 			std::lock_guard<Mutex> lock(m_mutex);

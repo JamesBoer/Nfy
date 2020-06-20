@@ -19,6 +19,7 @@ public:
 	virtual void SingleArg(int arg) = 0;
 	virtual void MultiArg(double arg1, double arg2) = 0;
 	virtual bool ReturnVal(bool val) = 0;
+	virtual void Increment() = 0;
 };
 
 class Observer : public INotify
@@ -37,10 +38,14 @@ public:
 	virtual bool ReturnVal(bool val) override { m_returnVal = val; return m_returnVal; }
 	bool GetReturnVal() const { return m_returnVal; }
 
+	virtual void Increment() override { ++m_counter; }
+	int GetCounter() const { return m_counter; }
+
 private:
 	bool m_noArg = false;
 	int m_singleArg = 0;
 	double m_multiArg1 = 0.0;
 	double m_multiArg2 = 0.0;
 	bool m_returnVal = false;
+	int m_counter = 0;
 };
