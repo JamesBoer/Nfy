@@ -1,4 +1,4 @@
-# Nfy
+# Nfy ![CI](https://github.com/JamesBoer/Nfy/workflows/CI/badge.svg)
 Nfy is a template-based notification library designed to simplify the implementation of an interface-based observer pattern in C++.  
 
 ## What is Nfy Used For?
