@@ -27,6 +27,12 @@ else()
 	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 
+if(UNIX AND NOT APPLE)
+	set(THREADS_PREFER_PTHREAD_FLAG ON)
+	find_package(Threads REQUIRED)
+	target_link_libraries(UnitTests Threads::Threads)
+endif()	
+
 # Organize IDE folders
 foreach(source IN LISTS source_list)
 	source_group("Source" FILES "${source}")
